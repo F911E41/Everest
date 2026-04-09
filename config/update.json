@@ -3,7 +3,7 @@
   "branches": {
     "main": {
       "velocity": {
-        "version": "3.4.0-SNAPSHOT",
+        "version": "3.5.0-SNAPSHOT",
         "plugins": {
           "geyser": {
             "strategy": "Direct",
@@ -22,6 +22,11 @@
             "strategy": "Jenkins",
             "host": "ci.viaversion.com",
             "project": "ViaVersion"
+          },
+          "viabackwards": {
+            "strategy": "Jenkins",
+            "host": "ci.viaversion.com",
+            "project": "ViaBackwards"
           },
           "cmiv": {
             "strategy": "Zrips",

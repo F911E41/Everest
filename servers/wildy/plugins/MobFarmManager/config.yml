@@ -21,6 +21,11 @@ HopperControl:
   SlowestRate: 40
   # Defines how often to adjust hopper transfer rate in actual transfer. So 30 will mean that after hopper transfers 30 items, its rate will get adjusted
   AdjustEvery: 30
+RedStone:
+  #  
+  # Enables redstone activity tracking which can then be checked in redstone command output
+  # Only records last 60 seconds and only per chunk activity
+  Track: false
 WolfControl:
   #  
   # Checks tamed wolfs in defined chunk range and if its above allowed limit then makes them sit down

@@ -24,6 +24,9 @@
             "viaversion": {
               "pattern": "ViaVersion-*"
             },
+            "viabackwards": {
+              "pattern": "ViaBackwards-*"
+            },
             "cmiv": {
               "pattern": "cmiv*"
             },

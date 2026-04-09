@@ -482,10 +482,6 @@ Alias:
   hologram:
     Enabled: true
     Tab: true
-  # /cmi hologram2 $1-
-  hologram2:
-    Enabled: true
-    Tab: true
   # /cmi hologrampages $1-
   hologrampages:
     Enabled: true

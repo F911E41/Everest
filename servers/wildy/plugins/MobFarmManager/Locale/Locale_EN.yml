@@ -57,6 +57,14 @@ command:
       byTypes: ' &eBy types'
       prefix: '  [color][type]'
       count: ' &8» &7[count]&8/&7[max]'
+  redstone:
+    help:
+      info: '&2List active redstone chunks'
+      args: ''
+    info:
+      List: '&e[place]. &6[x]&e:&6[z] &e(&6[amount]&e)'
+      Command: /tppos [x] [y] [z] [world]
+      Hover: "&6Teleport \n&e[world]"
   hoppers:
     help:
       info: '&7List chunks with most active hoppers in them'

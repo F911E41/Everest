@@ -653,10 +653,6 @@ ReSpawn:
     - homeLocation
     - worldSpawn
 Holograms:
-  # Defines in milliseconds how often to check if player entered holograms trigger area
-  # Bigger numbers can help slightly lower server load
-  # This is not essential to keep in low numbers
-  CheckInterval: 2000
   Defaults:
     # Default value for hologram view range
     # This defines from how far holograms will appear for the player or when they will disapear
@@ -665,15 +661,21 @@ Holograms:
     # This defines how close player should get for hologram to start updating its text
     # Keep it at reasoble numbers as there is no point to update hologram across map
     updateRange: 8
-    # Defines default update interval
-    # Higher values means that holograms will be updated less often
-    # When value is set to 0 or lower, holograms will not be updated
-    updateInterval: 0.0
-    # Defines default page change interval
+    Interval:
+      # Defines default update interval in ticks, 20 ticks = 1 second
+      # When value is set to 0 or lower, holograms will not be updated
+      # This only applies for holograms with dynamic contents
+      Update: 0
+    # Defines default page change interval in ticks
     # When value is set to 0 or lower, pages will not be changed
     pageChangeInterval: 0.0
-    # Defines if we should place lines up from starting position or down
-    placeUp: true
+    Interaction:
+      # Prefix to be used for lines utilizing CText
+      # This only applies for the sections that have set commands and will not have effect on basic text even with hover text
+      BasePrefix: '{#white}'
+      # Prefix to be used for lines utilizing CText when you hover over it
+      # Can be overriden with hologram editor
+      HoverPrefix: '{#gray}'
 Votifier:
   # When set to true votifier votes will be counted for player
   CountVotes: true
