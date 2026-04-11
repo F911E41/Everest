@@ -72,7 +72,7 @@ velocity-ping-save: true
 # It will fall back to the default option if none found.
 velocity-servers:
   default: 393
-  Wildy: 775
+  Wildy: 774
 #
 #----------------------------------------------------------#
 #                  GLOBAL PACKET LIMITER                   #
