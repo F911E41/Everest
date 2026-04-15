@@ -1,7 +1,7 @@
 # These first 6 aren't configurable
 issues: "https://github.com/IntellectualSites/FastAsyncWorldEdit/issues"
 wiki: "https://intellectualsites.github.io/fastasyncworldedit-documentation/"
-Upddate: "Wed May 13 00:00:00 KST 2026"
+date: "Wed May 13 00:00:00 KST 2026"
 build: "https://ci.athion.net/job/FastAsyncWorldEdit/1300"
 commit: "https://github.com/IntellectualSites/FastAsyncWorldEdit/commit/ff771576"
 platform: "Bukkit"
