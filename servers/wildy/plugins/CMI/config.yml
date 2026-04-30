@@ -1580,6 +1580,7 @@ Player:
       receivePets: true
       deathMessages: true
       notarget: false
+      showVehicleSpeed: false
     Icons:
       visibleHolograms: BLACK_STAINED_GLASS
       shiftSignEdit: OAK_SIGN
@@ -1601,6 +1602,7 @@ Player:
       receivePets: LEAD
       deathMessages: DEAD_BUSH
       notarget: BEDROCK
+      showVehicleSpeed: MINECART
 WarmUps:
   # You can enable any command warmup to prevent instant command usage
   # tp:5:false means that when player performs /tp command he will need to wait 5 sec and will not be able to move outside current block

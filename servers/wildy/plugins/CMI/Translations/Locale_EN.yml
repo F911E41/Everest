@@ -2817,6 +2817,7 @@ command:
         receivePets: '&eDo you want to receive pets as gifts'
         deathMessages: '&eDo you want to show death messages'
         notarget: '{gcp}Do you want to be ignored by mobs'
+        showVehicleSpeed: '{gcp}Do you want to show speed while inside vehicle'
   panimation:
     help:
       info: Play custom particle animation

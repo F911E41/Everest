@@ -76,3 +76,18 @@ TabList:
         - '&f------------------------------------'
         - '&7Money: &f%vault_eco_balance_formatted% &7Time: &f%server_time_HH:mm:ss%'
         - '&f------------------------------------'
+  Sorting:
+    # For 1.19.3+ servers only. Enable or disable tab list sorting. This will sort tablist by defined criteria
+    Enabled: false
+    # In which order should we sort players
+    # Potential options: Weight, Group, Name, NickName, Balance, World
+    # Optionally add ASC or DESC for specific order for that type of ordering, for example 'Weight-DESC'
+    # Weight is determined by players access to cmi.tablistweight.[value] permission node and highest value of it, for example cmi.tablistweight.5
+    # Sorting is updated at same time head and/or footer is
+    Order:
+    - Weight-DESC
+    - Group-ASC
+    - Name-ASC
+    - NickName-ASC
+    - Balance-ASC
+    - World-ASC

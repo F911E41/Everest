@@ -280,3 +280,7 @@ hat: true
 # Handling of some dialogs UI aspects
 # Applies for servers from 1.21.x and up
 dialogs: true
+#  
+# Handling of speed tracking
+# Applies for servers from 1.9.x and up
+speedtracking: true
