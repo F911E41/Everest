@@ -408,6 +408,7 @@ Skills:
                 Rank_6: 20.0
                 Rank_7: 15.0
                 Rank_8: 10.0
+            MaxEnchantLevel: 5
     #
     #  Settings for Salvage
     # ##
@@ -439,6 +440,7 @@ Skills:
                 Rank_6: 12.5
                 Rank_7: 15.0
                 Rank_8: 17.5
+            MaxEnchantLevel: 5
     #
     #  Settings for Smelting
     # ##
@@ -648,6 +650,11 @@ Skills:
                 Rank_2: 15
                 Rank_3: 20
                 Rank_4: 33
+        Crush:
+            # Base_Damage: Flat damage bonus applied at rank 1.
+            Base_Damage: 0.5
+            # Rank_Damage_Multiplier: Additional damage bonus per rank.
+            Rank_Damage_Multiplier: 1.0
     Spears:
         SpearMastery:
             Rank_Damage_Multiplier: 0.4
@@ -663,3 +670,16 @@ Skills:
                 Rank_8: 40
                 Rank_9: 45
                 Rank_10: 50
+    Crossbows:
+        PoweredShot:
+            # RankDamageMultiplier: The current rank of this subskill is multiplied by this value to determine bonus damage.
+            # RankDamageMultiplier is a percentage.
+            RankDamageMultiplier: 10.0
+            # MaxDamage: Maximum bonus damage added by PoweredShot.
+            MaxDamage: 9.0
+    Tridents:
+        Impale:
+            # Base_Damage: Flat damage bonus applied at rank 1.
+            Base_Damage: 1.0
+            # Rank_Damage_Multiplier: Additional damage bonus per rank after rank 1.
+            Rank_Damage_Multiplier: 0.5
