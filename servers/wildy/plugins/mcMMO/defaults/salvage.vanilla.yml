@@ -1,6 +1,6 @@
 #
 #  Salvage configuration
-#  Last updated on 2.2.052-SNAPSHOT-b1667
+#  Last updated on 2.2.052-SNAPSHOT-b1670
 #
 # Any file named salvage.*.yml in the mcmmmo folder will be loaded as a salvage config
 # All salvage configs have a main section titled "Salvageables"
