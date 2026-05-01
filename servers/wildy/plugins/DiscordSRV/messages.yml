@@ -6,8 +6,8 @@
 # You can specify a different format per channel. Let's say you have a channel named: "mychannel".
 # If you want it to have other formatting than the one defined globally you can add following properties:
 #
-# DiscordToMinecraftChatMessageFormat_mychannel: "[&bDiscord From MyChannel &r| %toprolecolor%%toprole%&r] %name% &8» &r%message%"
-# DiscordToMinecraftChatMessageFormatNoRole_mychannel: "[&bDiscord From MyChannel&r] %name% &8» &r%message%"
+# DiscordToMinecraftChatMessageFormat_mychannel: "[&bDiscord From MyChannel &r| %toprolecolor%%toprole%&r] %name% » %message%"
+# DiscordToMinecraftChatMessageFormatNoRole_mychannel: "[&bDiscord From MyChannel&r] %name% » %message%"
 #
 # Available placeholders:
 # %allroles%:       all of the person's roles combined with DiscordToMinecraftAllRolesSeparator between them all
@@ -197,7 +197,7 @@ DiscordChatChannelListCommandAllPlayersSeparator: ", "
 # Available placeholders for PlayerJoin messages:
 # %message%:        join message as seen in-game
 #
-MinecraftPlayerJoinMessage:
+MinecraftPlayerJoinMessage: 
   Enabled: false
   Webhook:
     Enable: false
@@ -226,7 +226,7 @@ MinecraftPlayerJoinMessage:
 # Available placeholders for PlayerFirstJoin messages:
 # %message%:        join message as seen in-game
 #
-MinecraftPlayerFirstJoinMessage:
+MinecraftPlayerFirstJoinMessage: 
   Enabled: true
   Webhook:
     Enable: false
@@ -255,7 +255,7 @@ MinecraftPlayerFirstJoinMessage:
 # Available placeholders for PlayerLeave messages:
 # %message%:        leave message as seen in-game
 #
-MinecraftPlayerLeaveMessage:
+MinecraftPlayerLeaveMessage: 
   Enabled: false
   Webhook:
     Enable: false
@@ -285,7 +285,7 @@ MinecraftPlayerLeaveMessage:
 # %deathmessage%: raw death message
 # %world%:        the name of the world the user died in
 #
-MinecraftPlayerDeathMessage:
+MinecraftPlayerDeathMessage: 
   Enabled: true
   Webhook:
     Enable: false
@@ -315,7 +315,7 @@ MinecraftPlayerDeathMessage:
 # %achievement%: title of the achievement/advancement
 # %world%:       the name of the world the user is in
 #
-MinecraftPlayerAchievementMessage:
+MinecraftPlayerAchievementMessage: 
   Enabled: true
   Webhook:
     Enable: false

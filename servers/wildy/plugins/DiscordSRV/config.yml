@@ -2,7 +2,7 @@
 # Need help? Join our Discord, https://discordsrv.com/discord
 
 # Don't touch pls
-ConfigVersion: 1.30.4
+ConfigVersion: 1.30.5
 
 # Bot token; don't know what this is? Look at the video on the plugin page for instructions
 # You must restart your server after changing this option
@@ -258,7 +258,7 @@ ChannelTopicUpdaterRateInMinutes: 10
 #     %totalplayers%:   total number of players to ever join the main world
 #     %timestamp%:      current unix timestamp
 #   UpdateInterval: Time in minutes to wait between updating the channel's name (minimum is 10 due to rate limits)
-ChannelUpdater:
+ChannelUpdater: 
   - ChannelId: "0000000000000000"
     Format: "%playercount% players online"
     ShutdownFormat: "Server is offline"
