@@ -31,7 +31,7 @@ check_deps jq curl
 }
 mkdir -p "$ENGINE_DIR"
 
-trap cleanup_jobs SIGINT SIGTERM
+trap cleanup_jobs EXIT INT TERM
 
 # Resolve branch (use pre-resolved if available)
 if [[ -n "${EVEREST_RESOLVED_UPDATE:-}" ]]; then
@@ -137,18 +137,29 @@ log_info "Starting engine updates (Fill API v3)..."
 
 declare -a PIDS=()
 failed=0
+engine_count=0
 
 # Iterate engines: keys in the resolved branch that have a .version field
 while IFS=$'\t' read -r engine version; do
   [[ -n "$engine" && -n "$version" ]] || continue
   process_engine "$engine" "$version" &
   PIDS+=("$!")
+  ((engine_count++)) || true
 done < <(jq -r 'to_entries[] | select(.value | type == "object" and has("version")) | "\(.key)\t\(.value.version)"' <<<"$RESOLVED")
+
+if [[ $engine_count -eq 0 ]]; then
+  log_warn "No engine targets found in resolved update config."
+  exit 0
+fi
 
 for pid in "${PIDS[@]}"; do
   wait "$pid" || ((failed++)) || true
 done
 
-[[ $failed -gt 0 ]] && log_warn "${failed} engine(s) failed to update."
+if [[ $failed -gt 0 ]]; then
+  log_warn "${failed} engine(s) failed to update."
+  exit 1
+fi
+
 log_info "Engine updates complete."
 exit 0

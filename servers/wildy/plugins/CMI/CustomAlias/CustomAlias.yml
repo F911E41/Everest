@@ -20,12 +20,12 @@ CustomAlias:
   # Initialization commands for Wildy server
   initWildy:
     Cmds:
-      - gamerule wwild announceAdvancements false
-      - gamerule wwild spectatorsGenerateChunks false
-      - gamerule wwild_nether announceAdvancements false
-      - gamerule wwild_nether spectatorsGenerateChunks false
-      - gamerule wwild_the_end announceAdvancements false
-      - gamerule wwild_the_end spectatorsGenerateChunks false
+      - gamerule world announceAdvancements false
+      - gamerule world spectatorsGenerateChunks false
+      - gamerule world_nether announceAdvancements false
+      - gamerule world_nether spectatorsGenerateChunks false
+      - gamerule world_the_end announceAdvancements false
+      - gamerule world_the_end spectatorsGenerateChunks false
       - papi ecloud download GriefPrevention
       - papi ecloud download Server
       - papi reload

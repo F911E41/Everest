@@ -1,6 +1,6 @@
 {
-  "wwild_nether": {
-    "world": "wwild_nether",
+  "world_nether": {
+    "world": "world_nether",
     "centerX": 0.0,
     "centerZ": 0.0,
     "radiusX": 8192.0,
@@ -8,8 +8,8 @@
     "shape": "pentagon",
     "wrap": "none"
   },
-  "wwild_the_end": {
-    "world": "wwild_the_end",
+  "world_the_end": {
+    "world": "world_the_end",
     "centerX": 0.0,
     "centerZ": 0.0,
     "radiusX": 8192.0,
@@ -17,8 +17,8 @@
     "shape": "hexagon",
     "wrap": "none"
   },
-  "wwild": {
-    "world": "wwild",
+  "world": {
+    "world": "world",
     "centerX": 0.0,
     "centerZ": 0.0,
     "radiusX": 8192.0,

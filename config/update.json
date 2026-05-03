@@ -44,7 +44,7 @@
         }
       },
       "paper": {
-        "version": "1.21.11",
+        "version": "26.1.2",
         "plugins": {
           "Chunky": {
             "strategy": "Jenkins",
@@ -68,11 +68,6 @@
             "strategy": "Github",
             "owner": "DiscordSRV",
             "repo": "DiscordSRV"
-          },
-          "FastAsyncWorldEdit": {
-            "strategy": "Jenkins",
-            "host": "ci.athion.net",
-            "project": "FastAsyncWorldEdit"
           },
           "GriefPrevention": {
             "strategy": "Jenkins",
@@ -120,10 +115,6 @@
           "PlotSquared": {
             "strategy": "Manual",
             "url": "https://www.spigotmc.org/resources/plotsquared-v7.77506/updates/"
-          },
-          "WorldGuard": {
-            "strategy": "EngineHub",
-            "project": "WorldGuard"
           }
         }
       }

@@ -180,7 +180,7 @@ advancements:
   - minecraft:story/disabled
 players:
   disable-saving: false
-config-version: 12
+config-version: 13
 stats:
   disable-saving: false
   forced-stats: {}

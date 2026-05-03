@@ -19,7 +19,7 @@ RandomTeleportation:
   AutoGenerateWorlds: true
   Worlds:
     # World name to use this feature. Add another one with appropriate name to enable random teleportation
-    wwild:
+    world:
       Enabled: true
       # Amount of times we should try to find valid location. This is mostly directly correlates with amount of chunks we will check
       # If set to 0 we will use default MaxTries set at the top of file
@@ -42,7 +42,7 @@ RandomTeleportation:
       SurfaceOnly: false
       # When enabled player will be able to random teleport at specied world while being in another one
       FromAnotherWorld: true
-      # When enabled player will be required to have (cmi.randomteleport.wwild) permission node to random teleport inside this world
+      # When enabled player will be required to have (cmi.randomteleport.world) permission node to random teleport inside this world
       RequireWorldPermission: false
       YLimits:
         # Location detection limitations on Y axis. If you want to minimize teleportations underground then you can set this value to 63
@@ -65,7 +65,7 @@ RandomTeleportation:
       # List of biomes we should look for when random teleporting
       # If this contains biome names then we will ignore Ignore.Biomes section
       PreferredBiomes: []
-    wwild_nether:
+    world_nether:
       Enabled: true
       MaxTries: 0
       Cooldown: 0
@@ -91,7 +91,7 @@ RandomTeleportation:
         Materials: []
         Biomes: []
       PreferredBiomes: []
-    wwild_the_end:
+    world_the_end:
       Enabled: true
       MaxTries: 0
       Cooldown: 0

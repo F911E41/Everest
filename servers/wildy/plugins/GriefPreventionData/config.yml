@@ -2,14 +2,14 @@
 
 GriefPrevention:
   SeaLevelOverrides:
-    wwild: 48
-    wwild_nether: 36
-    wwild_the_end: 24
+    world: 48
+    world_nether: 36
+    world_the_end: 24
   Claims:
     Mode:
-      wwild: Survival
-      wwild_nether: Survival
-      wwild_the_end: Disabled
+      world: Survival
+      world_nether: Survival
+      world_the_end: Disabled
     PreventGlobalMonsterEggs: true
     PreventTheft: true
     ProtectCreatures: true
@@ -68,9 +68,9 @@ GriefPrevention:
     Logout Message Delay In Seconds: -1
   PvP:
     RulesEnabledInWorld:
-      wwild: true
-      wwild_nether: true
-      wwild_the_end: true
+      world: true
+      world_nether: true
+      world_the_end: true
     ProtectFreshSpawns: true
     PunishLogout: true
     CombatTimeoutSeconds: 16

@@ -25,7 +25,7 @@ LOG_TAG="link-plugin"
 source "${SCRIPT_DIR}/modules/library"
 
 # Pre-flight
-check_deps jq find awk sort ln mktemp mv
+check_deps jq find ln mktemp mv
 
 [[ -f "$CONFIG_FILE" ]] || {
   log_err "Config missing: $CONFIG_FILE"
@@ -56,7 +56,15 @@ fi
 # ------------------------------------------------------------------------------
 
 detect_format() {
-  jq -r 'to_entries | first | .value | if has("pattern") then "flat" else "grouped" end' <<<"$1"
+  jq -r '
+    if type != "object" or length == 0 then
+      "grouped"
+    elif (to_entries | first | .value | (type == "object" and has("pattern"))) then
+      "flat"
+    else
+      "grouped"
+    end
+  ' <<<"$1"
 }
 
 # ------------------------------------------------------------------------------
@@ -110,7 +118,6 @@ link_server_plugins() {
   # Build in temp dir
   local temp_dir
   temp_dir="$(mktemp -d -p "$server_dir" ".plugins_build_XXXXXX")"
-  trap 'rm -rf "$temp_dir" 2>/dev/null || true' RETURN
 
   local linked=0 missing=0
   local format
@@ -168,6 +175,7 @@ link_server_plugins() {
   # Nothing linked → preserve existing
   if [[ $linked -eq 0 ]]; then
     log_warn "No plugins linked for ${server}. Preserving existing."
+    rm -rf "$temp_dir" 2>/dev/null || true
     return 0
   fi
 
@@ -205,11 +213,13 @@ link_server_plugins() {
     done
     shopt -u nullglob
     rm -rf "$backup_dir" 2>/dev/null || true
+    rm -rf "$temp_dir" 2>/dev/null || true
     log_err "Failed to apply plugins for ${server}."
     return 1
   fi
 
   rm -rf "$backup_dir" 2>/dev/null || true
+  rm -rf "$temp_dir" 2>/dev/null || true
 
   if [[ $missing -gt 0 ]]; then
     log_warn "Linked for ${server}, but ${missing} plugin(s) missing."
@@ -228,6 +238,8 @@ mapfile -t SERVERS < <(jq -r '
     | .key
 ' <<<"$RESOLVED")
 
+failures=0
+
 for server in "${SERVERS[@]}"; do
   engine="$(jq -r --arg s "$server" '.[$s].engine' <<<"$RESOLVED")"
   server_dir="${SERVERS_ROOT}/${server}"
@@ -242,8 +254,15 @@ for server in "${SERVERS[@]}"; do
   }
 
   log_info "Linking plugins: ${BLUE}${server}${NC} (${engine})"
-  link_server_plugins "$server" "$engine" "$server_dir"
+  if ! link_server_plugins "$server" "$engine" "$server_dir"; then
+    ((failures++)) || true
+  fi
 done
+
+if [[ $failures -gt 0 ]]; then
+  log_err "Plugin linking completed with ${failures} server failure(s)."
+  exit 1
+fi
 
 log_info "Plugin linking complete."
 exit 0

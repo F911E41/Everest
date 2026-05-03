@@ -315,3 +315,6 @@ tick-rates:
 unsupported-settings:
   disable-world-ticking-when-empty: true
   fix-invulnerable-end-crystal-exploit: true
+  ticking:
+    block-entities: true
+    chunks: true

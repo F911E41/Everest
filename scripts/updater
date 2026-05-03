@@ -24,6 +24,7 @@ LOG_TAG="updater"
 
 # Pre-flight
 check_deps jq curl realpath
+trap cleanup_jobs SIGINT SIGTERM
 
 for config_file in "${ROOT_PATH}/config/server.json" "${ROOT_PATH}/config/update.json"; do
   [[ -f "${config_file}" ]] || {
@@ -44,8 +45,8 @@ export EVEREST_BRANCH="${EVEREST_BRANCH:-}"
 # Pre-resolve configs and export for child scripts (avoids redundant I/O + jq)
 log_info "Resolving configuration..."
 
-UPDATE_CONFIG="$(cat "${ROOT_PATH}/config/update.json")"
-SERVER_CONFIG="$(cat "${ROOT_PATH}/config/server.json")"
+UPDATE_CONFIG="$(<"${ROOT_PATH}/config/update.json")"
+SERVER_CONFIG="$(<"${ROOT_PATH}/config/server.json")"
 
 EVEREST_RESOLVED_UPDATE="$(resolve_branch "$UPDATE_CONFIG")" || {
   log_err "Failed to resolve update branch config"

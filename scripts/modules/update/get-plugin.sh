@@ -382,6 +382,7 @@ download_plugin() {
 # ==============================================================================
 
 log_info "Starting plugin updates..."
+overall_failed=0
 
 # Iterate platforms (keys in resolved branch that have .plugins)
 mapfile -t PLATFORMS < <(jq -r '
@@ -389,6 +390,11 @@ mapfile -t PLATFORMS < <(jq -r '
     | select(.value | type == "object" and has("plugins"))
     | .key
 ' <<<"$RESOLVED")
+
+if [[ ${#PLATFORMS[@]} -eq 0 ]]; then
+  log_warn "No plugin targets found in resolved update config."
+  exit 0
+fi
 
 for platform in "${PLATFORMS[@]}"; do
   log_info "Processing platform: ${CYAN}${platform}${NC}"
@@ -409,7 +415,7 @@ for platform in "${PLATFORMS[@]}"; do
     download_plugin "$platform" "$name" "$plugin_json" "$TEMP_DIR" "$TARGET_DIR" &
     pids+=("$!")
   done < <(jq -r --arg p "$platform" '
-        .[$p].plugins
+        .[$p].plugins // {}
         | to_entries[]
         | "\(.key)\t\(.value | tostring)"
     ' <<<"$RESOLVED")
@@ -421,13 +427,15 @@ for platform in "${PLATFORMS[@]}"; do
   done
 
   # Check results
-  if [[ -z "$(ls -A "$TEMP_DIR" 2>/dev/null || true)" ]]; then
-    log_warn "No plugins downloaded for ${platform}."
+  if [[ -z "$(find "$TEMP_DIR" -mindepth 1 -maxdepth 1 -print -quit 2>/dev/null)" ]]; then
+    [[ $failed -gt 0 ]] && ((overall_failed++)) || true
+    log_warn "No plugins downloaded for ${platform}. Preserving existing Managed dir."
     rm -rf "$TEMP_DIR"
     continue
   fi
 
   if [[ $failed -gt 0 ]]; then
+    ((overall_failed++)) || true
     log_err "${platform}: ${failed} plugin(s) failed. Preserving existing Managed dir."
     rm -rf "$TEMP_DIR"
     continue
@@ -435,7 +443,12 @@ for platform in "${PLATFORMS[@]}"; do
 
   # Atomic swap: temp → Managed
   log_info "Swapping Managed directory for ${platform}..."
-  atomic_swap "$TEMP_DIR" "$TARGET_DIR"
+  if ! atomic_swap "$TEMP_DIR" "$TARGET_DIR"; then
+    ((overall_failed++)) || true
+    log_err "Failed to swap Managed directory for ${platform}. Preserving existing."
+    rm -rf "$TEMP_DIR"
+    continue
+  fi
 
   # Remove from cleanup tracking (already moved)
   declare -a new_tmp=()
@@ -447,6 +460,11 @@ for platform in "${PLATFORMS[@]}"; do
 
   log_info "All plugins updated for ${platform}."
 done
+
+if [[ $overall_failed -gt 0 ]]; then
+  log_err "Plugin updates completed with ${overall_failed} platform failure(s)."
+  exit 1
+fi
 
 log_info "Plugin updates complete."
 exit 0

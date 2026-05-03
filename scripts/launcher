@@ -57,30 +57,33 @@ check_deps tmux java realpath jq
 # ------------------------------------------------------------------------------
 
 # Load environment variables
-ENV_EXPORTS=()
-if [[ -f "${ROOT_PATH}/.env" ]]; then
-  while IFS='=' read -r key val; do
-    [[ "$key" =~ ^#.*$ || -z "$key" ]] && continue
-    ENV_EXPORTS+=("$key=$val")
-    export "$key=$val"
-  done <"${ROOT_PATH}/.env"
-fi
+mapfile -t ENV_EXPORTS < <(load_env_file "${ROOT_PATH}/.env")
 
 # Enter server directory
+[[ -d "$SERVER_DIR" ]] || {
+  log_err "Server directory not found: '$SERVER_DIR'"
+  exit 1
+}
+
 cd "$SERVER_DIR" || {
   log_err "Failed to enter '$SERVER_DIR'"
   exit 1
 }
 
 # Find latest engine JAR (version-aware sort)
-JAR_FILE=$(find "$ENGINE_DIR" -maxdepth 1 -type f -name "${ENGINE_TYPE}*.jar" | sort -V | tail -n1)
+JAR_FILE="$(pick_latest "$ENGINE_DIR" "${ENGINE_TYPE}*.jar")"
 if [[ -z "$JAR_FILE" || ! -f "$JAR_FILE" ]]; then
   log_err "Engine not found for: '$ENGINE_TYPE'"
   exit 1
 fi
 
 # Load JVM flags from config/server.json definitions
-mapfile -t COMMON_FLAGS < <(jq -r '.definitions.jvm_options.common[]' "$CONFIG_FILE")
+COMMON_FLAGS=()
+if jq -e '.definitions.jvm_options.common | type == "array"' "$CONFIG_FILE" >/dev/null 2>&1; then
+  mapfile -t COMMON_FLAGS < <(jq -r '.definitions.jvm_options.common[]' "$CONFIG_FILE")
+else
+  log_warn "No common JVM options found in config/server.json"
+fi
 
 ENGINE_FLAGS=()
 if jq -e --arg e "$ENGINE_TYPE" '.definitions.jvm_options[$e]' "$CONFIG_FILE" >/dev/null 2>&1; then

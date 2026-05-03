@@ -46,26 +46,24 @@ link_resource() {
   local source_path="$1" dest_path="$2" name="$3" tag="$4"
 
   if [[ ! -e "$source_path" ]]; then
-    log_warn "Source missing for ${tag}/${name}: $source_path"
-    log_warn "Creating empty directory: $source_path"
-    mkdir -p "$source_path"
+    log_err "Source missing for ${tag}/${name}: $source_path"
+    return 1
   fi
 
   mkdir -p "$(dirname "$dest_path")"
 
-  # Remove existing target (symlink, dir, or file)
+  # Preserve non-symlink targets instead of deleting them.
   if [[ -L "$dest_path" ]]; then
     rm -f "$dest_path"
-  elif [[ -d "$dest_path" ]]; then
-    log_warn "Replacing directory with symlink: $dest_path"
-    rm -rf "$dest_path"
-  elif [[ -f "$dest_path" ]]; then
-    log_warn "Replacing file with symlink: $dest_path"
-    rm -f "$dest_path"
+  elif [[ -e "$dest_path" ]]; then
+    local backup_path="${dest_path}.bak.$(date +%s)"
+    mv "$dest_path" "$backup_path"
+    log_warn "Moved existing path to backup: ${backup_path}"
   fi
 
   ln -sfn "$source_path" "$dest_path"
   log_info "${tag}: ${name} → ${dest_path}"
+  return 0
 }
 
 # ------------------------------------------------------------------------------
@@ -78,6 +76,8 @@ mapfile -t SERVERS < <(jq -r '
     | select(.value | type == "object" and has("engine"))
     | .key
 ' <<<"$RESOLVED")
+
+failures=0
 
 for server in "${SERVERS[@]}"; do
   SERVER_DIR="${SERVERS_ROOT}/${server}"
@@ -102,13 +102,20 @@ for server in "${SERVERS[@]}"; do
       log_warn "Invalid mount entry in ${server}: name=${name}"
       continue
     }
-    link_resource "${COMMON_ROOT}/${src}" "${SERVER_DIR}/${dest}" "$name" "$server"
+    if ! link_resource "${COMMON_ROOT}/${src}" "${SERVER_DIR}/${dest}" "$name" "$server"; then
+      ((failures++)) || true
+    fi
   done < <(jq -r --arg s "$server" '
         .[$s].mounts
         | to_entries[]
         | "\(.key)\t\(.value.src)\t\(.value.dest)"
     ' <<<"$RESOLVED")
 done
+
+if [[ $failures -gt 0 ]]; then
+  log_err "Mount linking completed with ${failures} failure(s)."
+  exit 1
+fi
 
 log_info "Mount linking complete."
 exit 0

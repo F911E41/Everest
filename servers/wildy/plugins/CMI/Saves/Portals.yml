@@ -1,6 +1,6 @@
 # Command section can utilize same custom variables as scheduler. Check Schedules.yml file for all possible variables.
 
-wwild:
+world:
   Move:
     Loc: -4.0:13.0:-4.0:4.0:8.0:4.0
     enabled: true
@@ -18,5 +18,5 @@ wwild:
     commands:
       - asConsole! cmi effect [playerName] waterBreathing 14 1 -s
       - asConsole! cmi effect [playerName] blindness 4 1 -s
-      - asConsole! cmi rt [playerName] wwild
+      - asConsole! cmi rt [playerName] world
       - asConsole! cmi dialogs move [playerName]

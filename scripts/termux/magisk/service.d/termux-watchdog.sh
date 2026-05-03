@@ -1,30 +1,45 @@
 #!/system/bin/sh
+set -eu
 
 # Wait for 18 seconds to ensure all services are up
 sleep 18
 
-# First time start
-am start -n com.termux/.HomeActivity
+termux_activity="com.termux/.HomeActivity"
+watchdog_interval="${TERMUX_WATCHDOG_INTERVAL_SECONDS:-24}"
+restart_delay="${TERMUX_WATCHDOG_RESTART_DELAY_SECONDS:-18}"
+
+start_termux() {
+  am start -n "$termux_activity" >/dev/null 2>&1 || log_msg "Failed to start Termux activity."
+}
 
 # Logging function
 log_msg() {
-  log -t "[$(date '+%H:%M:%S') TERMUX-WD]: $1"
+  if command -v log >/dev/null 2>&1; then
+    log -t "everest-termux-watchdog" "$1"
+  else
+    echo "[everest-termux-watchdog] $1"
+  fi
 }
+
+# First-time start
+start_termux
 
 # Ensure Termux is running
 # Protect Termux from being killed by the system
 (
   while true; do
-    pid=$(pidof "com.termux")
-    if [ -z "$pid" ]; then
+    pids="$(pidof com.termux 2>/dev/null || true)"
+    if [ -z "$pids" ]; then
       log_msg "Termux app not running, starting..."
-      am start -n "com.termux/.HomeActivity"
-      sleep 18
+      start_termux
+      sleep "$restart_delay"
     else
-      echo -17 >/proc/"$pid"/oom_adj 2>/dev/null
-      echo -1000 >/proc/"$pid"/oom_score_adj 2>/dev/null
+      for pid in $pids; do
+        [ -w "/proc/${pid}/oom_adj" ] && echo -17 >"/proc/${pid}/oom_adj" 2>/dev/null || true
+        [ -w "/proc/${pid}/oom_score_adj" ] && echo -1000 >"/proc/${pid}/oom_score_adj" 2>/dev/null || true
+      done
     fi
 
-    sleep 24
+    sleep "$watchdog_interval"
   done
 ) &

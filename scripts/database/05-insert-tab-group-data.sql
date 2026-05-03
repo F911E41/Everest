@@ -11,6 +11,13 @@ START TRANSACTION;
 -- TAB groups (reset + insert for idempotency)
 -- ---------------------------------------------------------
 
+DELETE
+FROM msdgl.tab_groups
+WHERE `group` = '_DEFAULT_'
+  AND `world` IS NULL
+  AND `server` IS NULL
+  AND `property` IN ('tabprefix', 'tagprefix', 'customtabname', 'tabsuffix', 'tagsuffix');
+
 INSERT INTO msdgl.tab_groups (`group`,
                               `property`,
                               `value`,

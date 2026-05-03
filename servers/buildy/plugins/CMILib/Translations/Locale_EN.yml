@@ -622,9 +622,9 @@ Location:
   Pitch: '&fPitch: &6[pitch]'
   Yaw: '&fYaw: &6[yaw]'
   WorldNames:
-  - wwild-&aOverworld
-  - wwild_nether-&aNether
-  - wwild_the_end-&aThe End
+  - world-&aOverworld
+  - world_nether-&aNether
+  - world_the_end-&aThe End
 Locations: '&bLocations &8» &f '
 command:
   help:

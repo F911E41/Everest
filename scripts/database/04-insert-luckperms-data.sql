@@ -13,12 +13,18 @@ START TRANSACTION;
 
 INSERT INTO msdgl.luckperms_groups
 VALUES ('admin'),
-       ('default');
+       ('default') ON DUPLICATE KEY
+UPDATE `name` =
+VALUES (`name`);
 
 -- ---------------------------------------------------------
 -- LuckPerms group permissions
 -- (reset + insert for idempotency)
 -- ---------------------------------------------------------
+
+DELETE
+FROM msdgl.luckperms_group_permissions
+WHERE `name` IN ('admin', 'default');
 
 INSERT INTO msdgl.luckperms_group_permissions
 VALUES (1,

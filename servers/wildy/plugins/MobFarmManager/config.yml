@@ -208,9 +208,9 @@ EntityGroups:
     - sheep
     - chicken
     Worlds:
-    - wwild
-    - wwild_nether
-    - wwild_the_end
+    - world
+    - world_nether
+    - world_the_end
   Monsters:
     RemoveExisting: true
     Use: true
@@ -222,9 +222,9 @@ EntityGroups:
     - creeper
     - squid
     Worlds:
-    - wwild
-    - wwild_nether
-    - wwild_the_end
+    - world
+    - world_nether
+    - world_the_end
 #  
 # This list is automatically filled with ALL possible entities in game, so some of them can just not work until future update
 EntityTypes:
@@ -250,9 +250,9 @@ EntityTypes:
     # If world is not defined then default limit will be used
     # If world is provided then we will ignore default limit and will use provided for this specific world
     WorldLimit:
-      wwild: -1
-      wwild_nether: -1
-      wwild_the_end: -1
+      world: -1
+      world_nether: -1
+      world_the_end: -1
   ACACIA_CHEST_BOAT:
     Use: true
     Limit: -1

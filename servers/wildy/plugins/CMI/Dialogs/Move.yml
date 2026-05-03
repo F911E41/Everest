@@ -33,7 +33,7 @@ Move:
         Width: 200
         Commands:
           - "closeinv!"
-          - "asPlayer! cmi rt [playerName] wwild"
+          - "asPlayer! cmi rt [playerName] world"
   Close:
     Label: "Close"
     Width: 100

@@ -1,4 +1,4 @@
-CREATE TABLE msdgl.luckperms_group_permissions
+CREATE TABLE IF NOT EXISTS msdgl.luckperms_group_permissions
 (
     `id`         int(11)      NOT NULL AUTO_INCREMENT,
     `name`       varchar(36)  NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE msdgl.luckperms_group_permissions
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_uca1400_ai_ci;
 
-CREATE TABLE msdgl.luckperms_groups
+CREATE TABLE IF NOT EXISTS msdgl.luckperms_groups
 (
     `name` varchar(36) NOT NULL,
     PRIMARY KEY (`name`)
@@ -22,7 +22,7 @@ CREATE TABLE msdgl.luckperms_groups
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_uca1400_ai_ci;
 
-CREATE TABLE msdgl.tab_groups
+CREATE TABLE IF NOT EXISTS msdgl.tab_groups
 (
     `group`    varchar(64)   DEFAULT NULL,
     `property` varchar(16)   DEFAULT NULL,
