@@ -72,9 +72,6 @@
             "DiscordSRV": {
               "pattern": "DiscordSRV-*"
             },
-            "FastAsyncWorldEdit": {
-              "pattern": "FastAsyncWorldEdit-Paper-*"
-            },
             "LuckPerms": {
               "pattern": "LuckPerms-*"
             },
@@ -86,9 +83,6 @@
             },
             "TAB": {
               "pattern": "TAB*"
-            },
-            "WorldGuard": {
-              "pattern": "worldguard-bukkit-*"
             },
             "GriefPrevention": {
               "pattern": "GriefPrevention*"
