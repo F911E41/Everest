@@ -1,6 +1,5 @@
 AutoBackup:
-  # Amount of auto backup files we should keep
-  # Auto backup files will have specific format like 2025-09-04_13-20-42_cmi.sqlite.db
+  # When enabled automatic database backup will be done if existing file is older than specified interval
   Enabled: false
   # Amount of auto backup files we should keep
   # Auto backup files will have specific format like 2025-09-04_13-20-42_cmi.sqlite.db

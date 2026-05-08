@@ -1,6 +1,6 @@
 #
 #  Advanced configuration
-#  Last updated on 2.2.052-SNAPSHOT-b1676
+#  Last updated on 2.2.052-SNAPSHOT-b1677
 #
 #  For advanced users only! There is no need to change anything here.
 #
@@ -121,12 +121,15 @@ Skills:
         Roll:
             # ChanceMax: Maximum chance of rolling when on <MaxBonusLevel> or higher
             # MaxBonusLevel: On this level or higher, the roll chance will not go higher than <ChanceMax>
-            # DamageThreshold: The max damage a player can negate with a roll, graceful roll doubles this number
+            # DamageThreshold: The max damage a player can negate with a normal roll
             ChanceMax: 100.0
             MaxBonusLevel:
                 Standard: 100
                 RetroMode: 1000
             DamageThreshold: 7.0
+        GracefulRoll:
+            # DamageThreshold: The max damage a player can negate with a graceful roll (sneaking)
+            DamageThreshold: 14.0
     #
     #  Settings for Alchemy
     ###

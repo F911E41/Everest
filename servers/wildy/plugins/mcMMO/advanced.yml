@@ -127,6 +127,9 @@ Skills:
                 Standard: 100
                 RetroMode: 1000
             DamageThreshold: 7.0
+        GracefulRoll:
+            # DamageThreshold: The max damage a player can negate with a graceful roll (sneaking)
+            DamageThreshold: 14.0
     #
     #  Settings for Alchemy
     # ##
