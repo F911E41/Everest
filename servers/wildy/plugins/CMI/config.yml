@@ -472,6 +472,9 @@ Optimizations:
     List:
       # Sorts players custom groups in Ascending or descending order
       ASCOrder: true
+    Give:
+      # When enabled items in give command will be limited to same limits as it is set for enchants, same permission requirements will apply
+      LimitEnchants: false
   Multicraft:
     # When set to true, will prevent multicraft servers to spam in console.
     DisableList: false
